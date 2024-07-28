@@ -6,9 +6,7 @@ export class SummarizerController {
   constructor(private readonly summarizerService: SummarizerService) {}
 
   @Post()
-  async getSummary(@Body('text') text: string) {
-    const response = await this.summarizerService.getSummary(text).toPromise();
-    return response;    
+  getSummary(@Body('text') text: string) {
+    return this.summarizerService.getSummary(text);
   }
 }
-// this is a comment
