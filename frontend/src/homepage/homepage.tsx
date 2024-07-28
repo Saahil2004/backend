@@ -9,7 +9,6 @@ import {
   Typography,
   List,
   ListItem,
-  ListItemText,
   AppBar,
   Toolbar,
   InputAdornment,
@@ -17,15 +16,15 @@ import {
   Avatar,
   LinearProgress,
   Stack,
+  ListItemText,
 } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import AutoAwesomeOutlinedIcon from "@mui/icons-material/AutoAwesomeOutlined";
-import "./homepage.css";
-// import { deepOrange } from "@mui/material/colors";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { blue } from "@mui/material/colors";
-// import Loading from "react-loading";
-// import { PulseLoader } from "react-spinners";
+import "./homepage.css";
 
 interface Message {
   sender: "user" | "bot";
@@ -46,7 +45,6 @@ function Chat() {
 
       try {
         // Send the input text to your backend
-        // const response = await axios.post('http://localhost:5000/chat', { text: input });
         const response = await axios.post("http://127.0.0.1:8000/chat", {
           text: input,
         });
@@ -87,7 +85,7 @@ function Chat() {
         }}
       >
         <Toolbar>
-          <Typography variant="h5" sx={{padding: "25px"}}>
+          <Typography variant="h5" sx={{ padding: "25px" }}>
             SaranshAI
             <AutoAwesomeIcon sx={{ paddingLeft: "5px" }} />
           </Typography>
@@ -138,7 +136,11 @@ function Chat() {
               {messages.map((msg, index) => (
                 <ListItem key={index}>
                   <ListItemText
-                    primary={msg.text}
+                    primary={
+                      <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                        {msg.text}
+                      </ReactMarkdown>
+                    }
                     style={{
                       textAlign: msg.sender === "user" ? "right" : "left",
                       backgroundColor:
@@ -151,21 +153,10 @@ function Chat() {
                   />
                 </ListItem>
               ))}
-              {/* {loading && (
-              <ListItem style={{ justifyContent: "center" }}>
-                <Loading type="cylon" color="#fff" height={30} width={30} />
-              </ListItem>
-            )} */}
-              {/* {loading && (
-              <ListItem style={{ justifyContent: "flex-start" }}>
-                <PulseLoader color="#fff" size={10} />
-              </ListItem>
-            )} */}
               {loading && (
                 <ListItem style={{ justifyContent: "flex-start" }}>
                   <Stack sx={{ width: "100%", color: "grey.500" }} spacing={2}>
                     <AutoAwesomeOutlinedIcon
-                      // className="rotating-star"
                       sx={{ fontSize: 40, color: "rgba(168,85,247,1)" }}
                     />
                     <LinearProgress
