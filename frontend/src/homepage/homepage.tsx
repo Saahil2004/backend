@@ -15,12 +15,16 @@ import {
   InputAdornment,
   IconButton,
   Avatar,
+  LinearProgress,
+  Stack,
 } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import './homepage.css'
-import { deepOrange } from "@mui/material/colors";
+// import { deepOrange } from "@mui/material/colors";
 import { blue } from '@mui/material/colors';
+// import Loading from "react-loading";
+import { PulseLoader } from "react-spinners";
 
 interface Message {
   sender: "user" | "bot";
@@ -30,12 +34,14 @@ interface Message {
 function Chat() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSend = async () => {
     if (input.trim()) {
       // Add user message to the chat
       setMessages([...messages, { sender: 'user', text: input }]);
       setInput('');
+      setLoading(true);
 
       try {
         // Send the input text to your backend
@@ -52,6 +58,8 @@ function Chat() {
         ]);
       } catch (error) {
         console.error('Error sending message:', error);
+      } finally {
+        setLoading(false);
       }
     }
   };
@@ -105,7 +113,7 @@ function Chat() {
               backgroundColor: "#212121",
               margin: "20px",
               boxShadow: "none",
-              overflow: "auto",
+              overflow: "hidden",
             }}
             className = "custom-scrollbar"
           >
@@ -130,6 +138,32 @@ function Chat() {
                   />
                 </ListItem>
               ))}
+               {/* {loading && (
+              <ListItem style={{ justifyContent: "center" }}>
+                <Loading type="cylon" color="#fff" height={30} width={30} />
+              </ListItem>
+            )} */}
+             {/* {loading && (
+              <ListItem style={{ justifyContent: "flex-start" }}>
+                <PulseLoader color="#fff" size={10} />
+              </ListItem>
+            )} */}
+            {loading && (
+               <Stack sx={{ width: '100%', color: 'grey.500' }} spacing={2}>
+               <LinearProgress 
+              //  color="#657DCD"
+              style={{backgroundColor:'#657DCD'}}
+                />
+               <LinearProgress 
+              //  color="#657DCD" 
+              style={{backgroundColor:'#657DCD'}}
+               />
+               <LinearProgress 
+              //  color="#657DCD" 
+              style={{backgroundColor:'#657DCD'}}
+               />
+             </Stack>
+            )}
             </List>
             <Box display="flex">
               <TextField
