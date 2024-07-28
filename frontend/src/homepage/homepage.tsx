@@ -176,7 +176,7 @@ function Chat() {
                 </ListItem>
               ))}
               {loading && (
-                <ListItem style={{margin: '0 auto',maxWidth: '60%', justifyContent: "flex-start" }}>
+                <ListItem style={{margin: '0 auto',maxWidth: '46%', justifyContent: "flex-start" }}>
                   <Stack sx={{ width: "100%", color: "grey.500" }} spacing={2}>
                     <AutoAwesomeOutlinedIcon
                       sx={{ fontSize: 40, color: "rgba(168,85,247,1)" }}
