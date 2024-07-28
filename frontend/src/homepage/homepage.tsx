@@ -19,12 +19,13 @@ import {
   Stack,
 } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
-import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
-import './homepage.css'
+import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
+import AutoAwesomeOutlinedIcon from '@mui/icons-material/AutoAwesomeOutlined';
+import "./homepage.css";
 // import { deepOrange } from "@mui/material/colors";
-import { blue } from '@mui/material/colors';
+import { blue } from "@mui/material/colors";
 // import Loading from "react-loading";
-import { PulseLoader } from "react-spinners";
+// import { PulseLoader } from "react-spinners";
 
 interface Message {
   sender: "user" | "bot";
@@ -39,14 +40,16 @@ function Chat() {
   const handleSend = async () => {
     if (input.trim()) {
       // Add user message to the chat
-      setMessages([...messages, { sender: 'user', text: input }]);
-      setInput('');
+      setMessages([...messages, { sender: "user", text: input }]);
+      setInput("");
       setLoading(true);
 
       try {
         // Send the input text to your backend
         // const response = await axios.post('http://localhost:5000/chat', { text: input });
-        const response = await axios.post('http://127.0.0.1:8000/chat', { text: input });
+        const response = await axios.post("http://127.0.0.1:8000/chat", {
+          text: input,
+        });
 
         console.log("This is the response", response);
         const botResponse = response.data.response;
@@ -54,16 +57,15 @@ function Chat() {
         // Add bot response to the chat
         setMessages((prevMessages) => [
           ...prevMessages,
-          { sender: 'bot', text: botResponse }
+          { sender: "bot", text: botResponse },
         ]);
       } catch (error) {
-        console.error('Error sending message:', error);
+        console.error("Error sending message:", error);
       } finally {
         setLoading(false);
       }
     }
   };
-
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
     if (event.key === "Enter" && !event.shiftKey) {
@@ -74,15 +76,28 @@ function Chat() {
 
   return (
     <>
-      <AppBar position="static" style={{ backgroundColor: "#212121",display:'flex',flexDirection:'row',justifyContent:'space-between',alignItems:'center'}}>
+      <AppBar
+        position="static"
+        style={{
+          backgroundColor: "#212121",
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
         <Toolbar>
           <Typography variant="h5">
             SaranshAI
-            <AutoAwesomeIcon sx = {{paddingLeft:"5px"}}/>
+            <AutoAwesomeIcon sx={{ paddingLeft: "5px" }} />
           </Typography>
         </Toolbar>
-        <Avatar sx={{ bgcolor: blue[900], color: 'white', marginRight: '25px' }}>AI</Avatar>
-        </AppBar>
+        <Avatar
+          sx={{ bgcolor: blue[900], color: "white", marginRight: "25px" }}
+        >
+          AI
+        </Avatar>
+      </AppBar>
       <Container
         style={{
           backgroundColor: "#212121",
@@ -115,7 +130,7 @@ function Chat() {
               boxShadow: "none",
               overflow: "hidden",
             }}
-            className = "custom-scrollbar"
+            className="custom-scrollbar"
           >
             <List
               style={{ flexGrow: 1, overflow: "auto", marginBottom: "20px" }}
@@ -125,7 +140,6 @@ function Chat() {
                   <ListItemText
                     primary={msg.text}
                     style={{
-                      
                       textAlign: msg.sender === "user" ? "right" : "left",
                       backgroundColor:
                         msg.sender === "user" ? "#343541" : "#444654",
@@ -133,37 +147,72 @@ function Chat() {
                       borderRadius: "10px",
                       padding: "10px",
                       margin: "5px 0",
-                      
                     }}
                   />
                 </ListItem>
               ))}
-               {/* {loading && (
+              {/* {loading && (
               <ListItem style={{ justifyContent: "center" }}>
                 <Loading type="cylon" color="#fff" height={30} width={30} />
               </ListItem>
             )} */}
-             {/* {loading && (
+              {/* {loading && (
               <ListItem style={{ justifyContent: "flex-start" }}>
                 <PulseLoader color="#fff" size={10} />
               </ListItem>
             )} */}
-            {loading && (
-               <Stack sx={{ width: '100%', color: 'grey.500' }} spacing={2}>
-               <LinearProgress 
-              //  color="#657DCD"
-              style={{backgroundColor:'#657DCD'}}
-                />
-               <LinearProgress 
-              //  color="#657DCD" 
-              style={{backgroundColor:'#657DCD'}}
-               />
-               <LinearProgress 
-              //  color="#657DCD" 
-              style={{backgroundColor:'#657DCD'}}
-               />
-             </Stack>
-            )}
+              {loading && (
+                <ListItem style={{ justifyContent: "flex-start" }}>
+                  <Stack sx={{ width: "100%", color: "grey.500" }} spacing={2}>
+                    <AutoAwesomeOutlinedIcon
+                      // className="rotating-star"
+                      sx={{ fontSize: 40, color: "#657DCD" }}
+                    />
+                    <LinearProgress
+                      sx={{
+                        height: "10px",
+                        background:
+                          "linear-gradient(90deg, rgba(101,125,205,1) 0%, rgba(255,255,255,0) 100%)",
+                        "& .MuiLinearProgress-bar": {
+                          background:
+                            "linear-gradient(90deg, rgba(101,125,205,1) 0%, rgba(255,255,255,0.5) 100%)",
+                          backdropFilter: "blur(5px)",
+                        },
+                        borderRadius: "5px",
+                        width: "80%",
+                      }}
+                    />
+                    <LinearProgress
+                      sx={{
+                        height: "10px",
+                        background:
+                          "linear-gradient(90deg, rgba(101,125,205,1) 0%, rgba(255,255,255,0) 100%)",
+                        "& .MuiLinearProgress-bar": {
+                          background:
+                            "linear-gradient(90deg, rgba(101,125,205,1) 0%, rgba(255,255,255,0) 100%)",
+                          backdropFilter: "blur(5px)",
+                        },
+                        borderRadius: "5px",
+                        width: "80%",
+                      }}
+                    />
+                    <LinearProgress
+                      sx={{
+                        height: "10px",
+                        background:
+                          "linear-gradient(90deg, rgba(101,125,205,1) 0%, rgba(255,255,255,0) 65%)",
+                        "& .MuiLinearProgress-bar": {
+                          background:
+                            "linear-gradient(90deg, rgba(101,125,205,1) 0%, rgba(255,255,255,0) 65%)",
+                          backdropFilter: "blur(5px)",
+                        },
+                        borderRadius: "5px",
+                        width: "65%",
+                      }}
+                    />
+                  </Stack>
+                </ListItem>
+              )}
             </List>
             <Box display="flex">
               <TextField

@@ -17,3 +17,16 @@
     scrollbar-width: thin;
     scrollbar-color: #444654 #2F2F2F;
   }
+
+  @keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .rotating-star {
+    animation: rotate 2s linear infinite;
+  }
