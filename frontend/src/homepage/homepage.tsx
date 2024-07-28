@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import {
   Box,
@@ -35,6 +35,8 @@ function Chat() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const listRef = useRef<HTMLUListElement>(null);
+  const messageEndRef = useRef<HTMLLIElement>(null);
 
   const handleSend = async () => {
     if (input.trim()) {
@@ -72,6 +74,12 @@ function Chat() {
     }
   };
 
+  useEffect(() => {
+    if (messageEndRef.current) {
+      messageEndRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [messages, loading]);
+
   return (
     <>
       <AppBar
@@ -85,7 +93,9 @@ function Chat() {
         }}
       >
         <Toolbar>
-          <Typography variant="h5" sx={{ padding: "25px" }}>
+          <Typography variant="h5"
+           sx={{ paddingTop: "20px" }}
+           >
             SaranshAI
             <AutoAwesomeIcon sx={{ paddingLeft: "5px" }} />
           </Typography>
@@ -112,29 +122,40 @@ function Chat() {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            overflow: "auto",
+            width: "100%", // Ensure Box takes full width
+            overflow:'auto'
           }}
         >
           <Paper
             style={{
-              width: "100%",
-              maxWidth: "800px",
-              padding: "20px",
-              height: "calc(100% - 80px)", // Adjust height to account for margins
+              width: "100%", // Ensure Paper takes full width
+              // padding: "0px",
+              height: "calc(100% - 40px)", // Adjust height to account for padding
               display: "flex",
               flexDirection: "column",
               backgroundColor: "#212121",
-              margin: "20px",
+              // margin: "0 300px",
               boxShadow: "none",
-              overflow: "hidden",
+              overflow: "auto",
             }}
             className="custom-scrollbar"
           >
             <List
-              style={{ flexGrow: 1, overflow: "auto", marginBottom: "20px" }}
+              ref={listRef}
+              style={{
+                flexGrow: 1,
+                overflow: "auto",
+                marginBottom: "20px",
+                // margin: '0 300px',
+                maxWidth: '100%', // Set a max-width for the List component
+              }}
             >
               {messages.map((msg, index) => (
-                <ListItem key={index}>
+                <ListItem
+                  key={index}
+                  ref={index === messages.length - 1 ? messageEndRef : null}
+                  style={{margin: '0 auto',maxWidth: '46%',}}
+                >
                   <ListItemText
                     primary={
                       <ReactMarkdown remarkPlugins={[remarkGfm]}>
@@ -147,14 +168,15 @@ function Chat() {
                         msg.sender === "user" ? "#343541" : "#444654",
                       color: "white",
                       borderRadius: "10px",
-                      padding: "10px",
+                      padding: "0 10px",
                       margin: "5px 0",
+                      width: "100%",
                     }}
                   />
                 </ListItem>
               ))}
               {loading && (
-                <ListItem style={{ justifyContent: "flex-start" }}>
+                <ListItem style={{margin: '0 auto',maxWidth: '60%', justifyContent: "flex-start" }}>
                   <Stack sx={{ width: "100%", color: "grey.500" }} spacing={2}>
                     <AutoAwesomeOutlinedIcon
                       sx={{ fontSize: 40, color: "rgba(168,85,247,1)" }}
@@ -205,7 +227,15 @@ function Chat() {
                 </ListItem>
               )}
             </List>
-            <Box display="flex">
+            <Box
+              display="flex"
+              justifyContent="center"
+              style={{
+                margin: '0 auto',
+                maxWidth: '800px', // Set a max-width for the TextField container
+                width: '100%',
+              }}
+            >
               <TextField
                 fullWidth
                 multiline
