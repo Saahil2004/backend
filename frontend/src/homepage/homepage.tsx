@@ -20,7 +20,7 @@ import {
 } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
-import AutoAwesomeOutlinedIcon from '@mui/icons-material/AutoAwesomeOutlined';
+import AutoAwesomeOutlinedIcon from "@mui/icons-material/AutoAwesomeOutlined";
 import "./homepage.css";
 // import { deepOrange } from "@mui/material/colors";
 import { blue } from "@mui/material/colors";
@@ -87,7 +87,7 @@ function Chat() {
         }}
       >
         <Toolbar>
-          <Typography variant="h5">
+          <Typography variant="h5" sx={{padding: "25px"}}>
             SaranshAI
             <AutoAwesomeIcon sx={{ paddingLeft: "5px" }} />
           </Typography>
@@ -166,16 +166,16 @@ function Chat() {
                   <Stack sx={{ width: "100%", color: "grey.500" }} spacing={2}>
                     <AutoAwesomeOutlinedIcon
                       // className="rotating-star"
-                      sx={{ fontSize: 40, color: "#657DCD" }}
+                      sx={{ fontSize: 40, color: "rgba(168,85,247,1)" }}
                     />
                     <LinearProgress
                       sx={{
                         height: "10px",
                         background:
-                          "linear-gradient(90deg, rgba(101,125,205,1) 0%, rgba(255,255,255,0) 100%)",
+                          "linear-gradient(90deg, rgba(168,85,247,1) 0%, rgba(255,255,255,0) 100%)",
                         "& .MuiLinearProgress-bar": {
                           background:
-                            "linear-gradient(90deg, rgba(101,125,205,1) 0%, rgba(255,255,255,0.5) 100%)",
+                            "linear-gradient(90deg, rgba(168,85,247,1) 0%, rgba(255,255,255,0.5) 100%)",
                           backdropFilter: "blur(5px)",
                         },
                         borderRadius: "5px",
@@ -186,10 +186,10 @@ function Chat() {
                       sx={{
                         height: "10px",
                         background:
-                          "linear-gradient(90deg, rgba(101,125,205,1) 0%, rgba(255,255,255,0) 100%)",
+                          "linear-gradient(90deg, rgba(168,85,247,1) 0%, rgba(255,255,255,0) 100%)",
                         "& .MuiLinearProgress-bar": {
                           background:
-                            "linear-gradient(90deg, rgba(101,125,205,1) 0%, rgba(255,255,255,0) 100%)",
+                            "linear-gradient(90deg, rgba(168,85,247,1) 0%, rgba(255,255,255,0) 100%)",
                           backdropFilter: "blur(5px)",
                         },
                         borderRadius: "5px",
@@ -200,10 +200,10 @@ function Chat() {
                       sx={{
                         height: "10px",
                         background:
-                          "linear-gradient(90deg, rgba(101,125,205,1) 0%, rgba(255,255,255,0) 65%)",
+                          "linear-gradient(90deg, rgba(168,85,247,1) 0%, rgba(255,255,255,0) 65%)",
                         "& .MuiLinearProgress-bar": {
                           background:
-                            "linear-gradient(90deg, rgba(101,125,205,1) 0%, rgba(255,255,255,0) 65%)",
+                            "linear-gradient(90deg, rgba(168,85,247,1) 0%, rgba(255,255,255,0) 65%)",
                           backdropFilter: "blur(5px)",
                         },
                         borderRadius: "5px",
