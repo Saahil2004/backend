@@ -37,6 +37,7 @@ function Chat() {
   const [loading, setLoading] = useState(false);
   const listRef = useRef<HTMLUListElement>(null);
   const messageEndRef = useRef<HTMLLIElement>(null);
+  const [showInitialMessage, setShowInitialMessage] = useState(true);
 
   const handleSend = async () => {
     if (input.trim()) {
@@ -44,6 +45,7 @@ function Chat() {
       setMessages([...messages, { sender: "user", text: input }]);
       setInput("");
       setLoading(true);
+      setShowInitialMessage(false);
 
       try {
         // Send the input text to your backend
@@ -140,6 +142,47 @@ function Chat() {
             }}
             className="custom-scrollbar"
           >
+              {/* {showInitialMessage && (
+              <Box
+                sx={{
+                  textAlign: 'left',
+                  // backgroundColor: '#343541',
+                  color: 'white',
+                  padding: '20px',
+                  borderRadius: '10px',
+                  margin: '0 auto',
+                  fontSize: '3rem',
+                  width:'46%',
+                  
+                }}
+              >
+              <h4 style={{width:'68%'}}>
+                Hi I am Saransh,
+                 How Can I Help You?
+              </h4>
+              </Box>
+            )} */}
+             {showInitialMessage && (
+              <Box
+                sx={{
+                  textAlign: 'left',
+                  color: 'white',
+                  padding: '20px',
+                  borderRadius: '10px',
+                  margin: '0 auto',
+                  fontSize: '3rem',
+                  width: '46%',
+                  background: 'linear-gradient(90deg, rgba(168,85,247,1) 0%, rgba(255,255,255,1) 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  // textShadow: '0 0 10px rgba(168,85,247,0.7), 0 0 20px rgba(168,85,247,0.7)',
+                }}
+              >
+                <h4 style={{ width: '68%' }}>
+                  Hi, I am SaranshAI, How Can I Help You?
+                </h4>
+              </Box>
+            )}
             <List
               ref={listRef}
               style={{
@@ -150,6 +193,22 @@ function Chat() {
                 maxWidth: '100%', // Set a max-width for the List component
               }}
             >
+               {/* {showInitialMessage && (
+                <ListItem  style={{margin: '0 auto',maxWidth: '46%',}}>
+                  <ListItemText
+                    primary="Hello Saransh here"
+                    style={{
+                      textAlign: "center",
+                      backgroundColor: "#343541",
+                      color: "white",
+                      borderRadius: "10px",
+                      padding: "0 10px",
+                      margin: "5px 0",
+                      width: "46%",
+                    }}
+                  />
+                </ListItem>
+              )} */}
               {messages.map((msg, index) => (
                 <ListItem
                   key={index}
@@ -169,8 +228,9 @@ function Chat() {
                       color: "white",
                       borderRadius: "10px",
                       padding: "0 10px",
-                      margin: "5px 0",
-                      width: "100%",
+                      // margin: "0px 0",
+                      width: "auto",
+                      overflow:'auto'
                     }}
                   />
                 </ListItem>
